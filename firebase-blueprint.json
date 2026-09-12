@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "name": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["owner", "doctor", "pet_owner"] },
+        "createdAt": { "type": "string" },
+        "emailVerified": { "type": "boolean" },
+        "status": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "isOnline": { "type": "boolean" },
+        "lastActive": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "DoctorProfile": {
+      "title": "Doctor Profile",
+      "description": "Veterinarian professional profile",
+      "type": "object",
+      "properties": {
+        "doctorId": { "type": "string" },
+        "name": { "type": "string" },
+        "qualification": { "type": "string" },
+        "registrationNumber": { "type": "string" },
+        "specialization": { "type": "string" },
+        "clinicName": { "type": "string" },
+        "experience": { "type": "number" },
+        "contactEmail": { "type": "string" },
+        "contactPhone": { "type": "string" },
+        "consultationTimings": { "type": "string" },
+        "services": { "type": "array" },
+        "location": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "verificationStatus": { "type": "string" }
+      },
+      "required": ["doctorId", "name"]
+    },
+    "PetProfile": {
+      "title": "Pet Profile",
+      "description": "Pet medical and identification profile",
+      "type": "object",
+      "properties": {
+        "petId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "name": { "type": "string" },
+        "species": { "type": "string" },
+        "breed": { "type": "string" },
+        "sex": { "type": "string" },
+        "dateOfBirth": { "type": "string" },
+        "weight": { "type": "number" },
+        "color": { "type": "string" },
+        "microchipNumber": { "type": "string" },
+        "allergies": { "type": "array" },
+        "knownMedicalConditions": { "type": "array" }
+      },
+      "required": ["petId", "ownerId", "name", "species"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Clinic appointment booking",
+      "type": "object",
+      "properties": {
+        "appointmentId": { "type": "string" },
+        "patientId": { "type": "string" },
+        "petName": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "doctorId": { "type": "string" },
+        "doctorName": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "status": { "type": "string" },
+        "reason": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "required": ["appointmentId", "patientId", "doctorId"]
+    },
+    "Consultation": {
+      "title": "Consultation",
+      "description": "Veterinary consultation record",
+      "type": "object",
+      "properties": {
+        "consultationId": { "type": "string" },
+        "patientId": { "type": "string" },
+        "doctorId": { "type": "string" },
+        "diagnosis": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["consultationId", "patientId"]
+    },
+    "AuditLog": {
+      "title": "Audit Log",
+      "description": "System security and action audit log",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "role": { "type": "string" },
+        "action": { "type": "string" },
+        "targetEntity": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["logId", "userId", "action"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles collection"
+    },
+    "/doctors/{doctorId}": {
+      "schema": { "$ref": "#/entities/DoctorProfile" },
+      "description": "Doctor profiles collection"
+    },
+    "/pets/{petId}": {
+      "schema": { "$ref": "#/entities/PetProfile" },
+      "description": "Pets collection"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": { "$ref": "#/entities/Appointment" },
+      "description": "Appointments collection"
+    },
+    "/consultations/{consultationId}": {
+      "schema": { "$ref": "#/entities/Consultation" },
+      "description": "Consultations collection"
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Audit logs collection"
+    }
+  }
+}

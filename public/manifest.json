@@ -1,0 +1,49 @@
+{
+  "name": "VetPulse Pro - Veterinary Hospital & Pet Care",
+  "short_name": "VetPulse",
+  "description": "Comprehensive 3D veterinary hospital management and AI clinical pet-care platform.",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": ["medical", "health", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Veterinarian Portal",
+      "short_name": "Doctor",
+      "description": "Open clinical consultations and diagnostics",
+      "url": "/?portal=doctor",
+      "icons": [{ "src": "/icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Pet Parent Hub",
+      "short_name": "Pet Owner",
+      "description": "View pet health records and vaccinations",
+      "url": "/?portal=pet_owner",
+      "icons": [{ "src": "/icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Hospital Admin Command",
+      "short_name": "Admin",
+      "description": "Manage clinic inventory, invoices and staff",
+      "url": "/?portal=owner",
+      "icons": [{ "src": "/icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}

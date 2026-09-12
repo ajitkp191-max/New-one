@@ -1,0 +1,6 @@
+{
+  "name": "VetPulse Pro",
+  "description": "Premium 3D-animated veterinary hospital management and smart pet-care platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
