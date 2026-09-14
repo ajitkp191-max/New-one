@@ -74,8 +74,10 @@ export default function SuperAdminMetrics3D({
               <span className="text-emerald-400 font-mono">Live Telemetry Active</span>
             </div>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight text-white flex items-center gap-3">
-              Hospital Master Dashboard
-              <Realistic3DEmoji emoji="heartbeat" size="sm" />
+              <span>Hospital Master Dashboard</span>
+              <div className="inline-flex items-center justify-center p-1.5 rounded-2xl bg-rose-500/15 border border-rose-500/30 backdrop-blur-md shadow-[0_4px_16px_rgba(244,63,94,0.25)]">
+                <Realistic3DEmoji emoji="heart" size="sm" />
+              </div>
             </h1>
             <p className="text-xs md:text-sm text-slate-300/90 leading-relaxed font-medium">
               Enterprise clinical operations, staff identity governance, revenue accounting, and high-precision audit ledger.
@@ -127,106 +129,130 @@ export default function SuperAdminMetrics3D({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
         {/* Card 1: Users & Staff */}
-        <ThreeDParallaxCard glowColor="rgba(6,182,212,0.4)" depth={14}>
-          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-cyan-50/30 to-slate-50 border border-slate-200/80 shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-between relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all" />
+        <ThreeDParallaxCard glowColor="rgba(6,182,212,0.35)" depth={14}>
+          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-cyan-50/20 to-slate-50/50 dark:from-slate-900 dark:via-slate-900/90 dark:to-cyan-950/20 border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] h-full flex flex-col justify-between relative overflow-hidden group transition-colors">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
             
-            <div className="flex items-start justify-between">
-              <div className="space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total User Base</span>
-                <h3 className="text-3xl font-black text-slate-900 tracking-tight">{userCount}</h3>
-              </div>
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(6,182,212,0.35)]">
-                <Users className="w-6 h-6" />
+            <div>
+              <div className="flex items-start justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">Total User Base</span>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{userCount}</h3>
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(6,182,212,0.35)] border border-cyan-300/30">
+                  <Users className="w-6 h-6" />
+                </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-1.5 text-emerald-600 font-bold">
+            <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200/50 dark:border-emerald-800/50">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 <span>{activeUsersCount} Active</span>
               </div>
-              <span className="text-slate-400 font-medium">{userCount - activeUsersCount} Suspended</span>
+              <span className="text-slate-400 dark:text-slate-500 font-semibold">{userCount - activeUsersCount} Offline</span>
             </div>
           </div>
         </ThreeDParallaxCard>
 
         {/* Card 2: Doctors & Clinical Staff */}
-        <ThreeDParallaxCard glowColor="rgba(16,185,129,0.4)" depth={14}>
-          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-emerald-50/30 to-slate-50 border border-slate-200/80 shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-between relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
+        <ThreeDParallaxCard glowColor="rgba(16,185,129,0.35)" depth={14}>
+          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-emerald-50/20 to-slate-50/50 dark:from-slate-900 dark:via-slate-900/90 dark:to-emerald-950/20 border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] h-full flex flex-col justify-between relative overflow-hidden group transition-colors">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
             
-            <div className="flex items-start justify-between">
-              <div className="space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Medical Doctors</span>
-                <h3 className="text-3xl font-black text-slate-900 tracking-tight">{doctorCount}</h3>
-              </div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(16,185,129,0.35)]">
-                <Stethoscope className="w-6 h-6" />
+            <div>
+              <div className="flex items-start justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">Medical Doctors</span>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{doctorCount}</h3>
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(16,185,129,0.35)] border border-emerald-300/30">
+                  <Stethoscope className="w-6 h-6" />
+                </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-1.5 text-emerald-600 font-bold">
+            <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200/50 dark:border-emerald-800/50">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>{doctorCount - pendingDoctorCount} Verified</span>
               </div>
-              {pendingDoctorCount > 0 && (
-                <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-black animate-pulse">
-                  {pendingDoctorCount} Review Needed
+              {pendingDoctorCount > 0 ? (
+                <span className="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-300/50 animate-pulse">
+                  {pendingDoctorCount} Pending
                 </span>
+              ) : (
+                <span className="text-slate-400 dark:text-slate-500 font-semibold">100% Onboarded</span>
               )}
             </div>
           </div>
         </ThreeDParallaxCard>
 
         {/* Card 3: Registered Patients (Pets) */}
-        <ThreeDParallaxCard glowColor="rgba(99,102,241,0.4)" depth={14}>
-          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-indigo-50/30 to-slate-50 border border-slate-200/80 shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-between relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-28 h-28 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all" />
+        <ThreeDParallaxCard glowColor="rgba(99,102,241,0.35)" depth={14}>
+          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-indigo-50/20 to-slate-50/50 dark:from-slate-900 dark:via-slate-900/90 dark:to-indigo-950/20 border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] h-full flex flex-col justify-between relative overflow-hidden group transition-colors">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
             
-            <div className="flex items-start justify-between">
-              <div className="space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Registered Patients</span>
-                <h3 className="text-3xl font-black text-slate-900 tracking-tight">{petCount}</h3>
-              </div>
-              <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(99,102,241,0.35)]">
-                <Dog className="w-6 h-6" />
+            <div>
+              <div className="flex items-start justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">Registered Patients</span>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{petCount}</h3>
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(99,102,241,0.35)] border border-indigo-300/30">
+                  <Dog className="w-6 h-6" />
+                </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-1.5 text-indigo-600 font-bold">
+            <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200/50 dark:border-indigo-800/50">
                 <Activity className="w-3.5 h-3.5" />
-                <span>{totalConsultationsCount} Clinical Records</span>
+                <span>{totalConsultationsCount} Consults</span>
               </div>
-              <span className="text-slate-400 font-medium">{totalAppointmentsCount} Bookings</span>
+              <span className="text-slate-400 dark:text-slate-500 font-semibold">{totalAppointmentsCount} Appts</span>
             </div>
           </div>
         </ThreeDParallaxCard>
 
         {/* Card 4: Financial & Revenue */}
-        <ThreeDParallaxCard glowColor="rgba(245,158,11,0.4)" depth={14}>
-          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-amber-50/30 to-slate-50 border border-slate-200/80 shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-between relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all" />
+        <ThreeDParallaxCard glowColor="rgba(245,158,11,0.35)" depth={14}>
+          <div className="p-6 rounded-[28px] bg-gradient-to-br from-white via-amber-50/20 to-slate-50/50 dark:from-slate-900 dark:via-slate-900/90 dark:to-amber-950/20 border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] h-full flex flex-col justify-between relative overflow-hidden group transition-colors">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
             
-            <div className="flex items-start justify-between">
-              <div className="space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Clinical Revenue (INR)</span>
-                <h3 className="text-3xl font-black text-slate-900 tracking-tight">₹{totalRevenue.toLocaleString()}</h3>
-              </div>
-              <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(245,158,11,0.35)]">
-                <IndianRupee className="w-6 h-6" />
+            <div>
+              <div className="flex items-start justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">Clinical Revenue (INR)</span>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">₹{totalRevenue.toLocaleString()}</h3>
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shadow-[0_8px_20px_rgba(245,158,11,0.35)] border border-amber-300/30">
+                  <IndianRupee className="w-6 h-6" />
+                </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-1 text-emerald-600 font-bold">
+            <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+              <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200/50 dark:border-emerald-800/50">
                 <TrendingUp className="w-3.5 h-3.5" />
-                <span>₹{paidRevenue.toLocaleString()} Settled</span>
+                <span>₹{paidRevenue.toLocaleString()} Paid</span>
               </div>
-              {unpaidRevenue > 0 && (
-                <span className="text-amber-600 font-bold">₹{unpaidRevenue.toLocaleString()} Pending</span>
+              {unpaidRevenue > 0 ? (
+                <span className="text-amber-600 dark:text-amber-400 font-bold text-[11px]">₹{unpaidRevenue.toLocaleString()} Due</span>
+              ) : (
+                <span className="text-slate-400 dark:text-slate-500 font-semibold">Zero Due</span>
               )}
             </div>
           </div>

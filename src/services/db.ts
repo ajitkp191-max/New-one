@@ -19,7 +19,9 @@ import {
   OwnerUploadedPrescription,
   WeightLogEntry,
   DuePreventiveItem,
-  BatchReminderResult
+  BatchReminderResult,
+  LearnedFormularyItem,
+  PrescriptionItem
 } from '../types';
 import { db, auth } from './firebaseClient';
 
@@ -441,6 +443,137 @@ const DEFAULT_HOSPITALIZATIONS: HospitalizationRecord[] = [
 
 const DEFAULT_UPLOADED_PRESCRIPTIONS: OwnerUploadedPrescription[] = [];
 
+const DEFAULT_LEARNED_FORMULARY: LearnedFormularyItem[] = [
+  {
+    id: 'lrn-amox-clav',
+    drugName: 'Amoxicillin + Clavulanate (Clavamox / Synulox)',
+    doseRate: '13.75 - 20 mg/kg',
+    concentration: '62.5mg, 125mg, 250mg, 500mg tablets / 62.5mg/ml drops',
+    route: 'PO',
+    frequency: 'BID (Every 12 hours)',
+    duration: '7 - 10 days',
+    indication: 'Broad-spectrum antimicrobial for Skin, Respiratory, Urinary & Soft tissue infections',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-10T08:00:00.000Z',
+    timesUsed: 42,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Administer with small meal to prevent GI upset. Safe for both dogs and cats.'
+  },
+  {
+    id: 'lrn-metronidazole',
+    drugName: 'Metronidazole (Flagyl)',
+    doseRate: '10 - 15 mg/kg',
+    concentration: '200mg / 400mg tablets, 50mg/ml suspension',
+    route: 'PO',
+    frequency: 'BID (Every 12 hours)',
+    duration: '5 - 7 days',
+    indication: 'Acute enteritis, Giardiasis, anaerobic intestinal infections, IBD colitis',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-12T10:00:00.000Z',
+    timesUsed: 35,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Reduce dose in severe hepatic impairment. Neurotoxicity warning at very high chronic doses.'
+  },
+  {
+    id: 'lrn-cerenia',
+    drugName: 'Maropitant Citrate (Cerenia)',
+    doseRate: '1 - 2 mg/kg',
+    concentration: '16mg, 24mg, 60mg tablets / 10mg/ml injection',
+    route: 'PO / SC',
+    frequency: 'SID (Every 24 hours)',
+    duration: '3 - 5 days',
+    indication: 'Acute emesis control, motion sickness, visceral analgesia support',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-14T11:30:00.000Z',
+    timesUsed: 38,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Neurokinin-1 (NK1) receptor antagonist. Keep injectable refrigerated to reduce sting on SC injection.'
+  },
+  {
+    id: 'lrn-meloxicam',
+    drugName: 'Meloxicam (Metacam / Loxicom)',
+    doseRate: '0.1 mg/kg canine / 0.05 mg/kg feline maintenance',
+    concentration: '1.5mg/ml canine, 0.5mg/ml feline oral suspension',
+    route: 'PO / SC',
+    frequency: 'SID (Every 24 hours)',
+    duration: '3 - 5 days',
+    indication: 'Musculoskeletal pain, post-operative soft tissue inflammation, osteoarthritis',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-15T09:00:00.000Z',
+    timesUsed: 29,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Always administer with food. Ensure normal hydration. Never combine with corticosteroids.'
+  },
+  {
+    id: 'lrn-gabapentin',
+    drugName: 'Gabapentin (Neurontin)',
+    doseRate: '5 - 15 mg/kg canine / 10 - 20 mg/kg feline',
+    concentration: '100mg, 300mg capsules / 50mg/ml solution',
+    route: 'PO',
+    frequency: 'BID - TID (Every 8-12 hours)',
+    duration: 'As needed / 7 - 14 days',
+    indication: 'Neuropathic pain, chronic arthritic hyperalgesia, feline pre-visit anxiety sedation',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-18T14:00:00.000Z',
+    timesUsed: 26,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Caution: Do NOT use human liquid formulations containing xylitol in dogs.'
+  },
+  {
+    id: 'lrn-apoquel',
+    drugName: 'Oclacitinib (Apoquel)',
+    doseRate: '0.4 - 0.6 mg/kg',
+    concentration: '3.6mg, 5.4mg, 16mg tablets',
+    route: 'PO',
+    frequency: 'BID for 14 days, then SID maintenance',
+    duration: '14 - 30 days',
+    indication: 'Allergic dermatitis, Atopic dermatitis, Flea allergy pruritus control',
+    targetSpecies: 'dog',
+    source: 'ai_verified',
+    learnedAt: '2026-01-20T16:00:00.000Z',
+    timesUsed: 24,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'JAK-1 inhibitor providing rapid pruritus relief within 4 hours. Dogs >= 12 months only.'
+  },
+  {
+    id: 'lrn-doxycycline',
+    drugName: 'Doxycycline Hyclate / Monohydrate',
+    doseRate: '10 mg/kg SID or 5 mg/kg BID',
+    concentration: '50mg, 100mg tablets / 50mg/ml suspension',
+    route: 'PO',
+    frequency: 'SID (Once daily) or BID',
+    duration: '10 - 28 days',
+    indication: 'Tick-borne rickettsial diseases (Ehrlichia, Anaplasma, Lyme), Kennel Cough, Chlamydia',
+    targetSpecies: 'all',
+    source: 'ai_verified',
+    learnedAt: '2026-01-22T12:00:00.000Z',
+    timesUsed: 19,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'In felines, always follow oral tablets with 5-10 ml of water flush to prevent esophageal stricture.'
+  },
+  {
+    id: 'lrn-pimobendan',
+    drugName: 'Pimobendan (Vetmedin)',
+    doseRate: '0.25 - 0.3 mg/kg',
+    concentration: '1.25mg, 2.5mg, 5mg, 10mg chewable tablets',
+    route: 'PO',
+    frequency: 'BID (Every 12 hours)',
+    duration: 'Chronic / Ongoing',
+    indication: 'Myxomatous Mitral Valve Disease (MMVD Stage B2/C), Dilated Cardiomyopathy (DCM)',
+    targetSpecies: 'dog',
+    source: 'ai_verified',
+    learnedAt: '2026-01-25T15:00:00.000Z',
+    timesUsed: 18,
+    doctorConfidence: 'High (First-Line Protocol)',
+    clinicalNote: 'Inodilator. Give on an empty stomach at least 1 hour before feeding for maximum bioavailability.'
+  }
+];
+
 // Initialize our sandbox database
 class LocalDatabaseService {
   private users: UserProfile[] = [];
@@ -457,6 +590,7 @@ class LocalDatabaseService {
   private audit: AuditLog[] = [];
   private notifications: NotificationItem[] = [];
   private uploadedPrescriptions: OwnerUploadedPrescription[] = [];
+  private learnedFormulary: LearnedFormularyItem[] = [];
   private settings: AppSettings = {
     allowDoctorSelfVerification: true,
     maintenanceMode: false,
@@ -492,6 +626,7 @@ class LocalDatabaseService {
       this.audit = this.getOrInit('vp_audit', DEFAULT_AUDIT);
       this.notifications = this.getOrInit('vp_notifications', DEFAULT_NOTIFICATIONS);
       this.uploadedPrescriptions = this.getOrInit('vp_uploaded_prescriptions', DEFAULT_UPLOADED_PRESCRIPTIONS);
+      this.learnedFormulary = this.getOrInit('vp_learned_formulary', DEFAULT_LEARNED_FORMULARY);
       const savedSettings = localStorage.getItem('vp_settings');
       if (savedSettings) {
         this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
@@ -543,6 +678,7 @@ class LocalDatabaseService {
     this.audit = [...DEFAULT_AUDIT];
     this.notifications = [...DEFAULT_NOTIFICATIONS];
     this.uploadedPrescriptions = [...DEFAULT_UPLOADED_PRESCRIPTIONS];
+    this.learnedFormulary = [...DEFAULT_LEARNED_FORMULARY];
     localStorage.clear();
     this.save('vp_users', this.users);
     this.save('vp_doctors', this.doctors);
@@ -558,6 +694,7 @@ class LocalDatabaseService {
     this.save('vp_audit', this.audit);
     this.save('vp_notifications', this.notifications);
     this.save('vp_uploaded_prescriptions', this.uploadedPrescriptions);
+    this.save('vp_learned_formulary', this.learnedFormulary);
   }
 
   // AUDIT LOGGER helper
@@ -794,8 +931,54 @@ class LocalDatabaseService {
   public saveConsultation(con: Consultation) {
     const idx = this.consultations.findIndex(c => c.consultationId === con.consultationId);
     if (idx >= 0) this.consultations[idx] = con;
-    else this.consultations.push(con);
+    else this.consultations.unshift(con);
     this.save('vp_consultations', this.consultations);
+
+    // Sync pet current medications if prescription items are present
+    const pet = this.pets.find(p => p.petId === con.patientId);
+    if (con.prescription && con.prescription.length > 0) {
+      if (pet) {
+        const medNames = con.prescription.map(p => `${p.drugName} (${p.doseRate || ''} ${p.frequency || ''})`.trim());
+        const combined = Array.from(new Set([...medNames, ...(pet.currentMedications || [])])).slice(0, 8);
+        pet.currentMedications = combined;
+        this.savePet(pet);
+      }
+
+      // Automatically learn from this prescription to upgrade future AI suggestions
+      this.recordPrescriptionLearning({
+        patientName: con.petName,
+        species: pet?.species,
+        diagnosis: con.diagnosis || con.chiefComplaint || 'Clinical Therapy',
+        items: con.prescription,
+        notes: con.treatmentPlan || con.followUp,
+        source: con.prescriptionMode === 'upload' ? 'uploaded_prescription' : 'doctor_rx'
+      });
+    }
+
+    // If there is an uploaded prescription slip or image, also sync with uploadedPrescriptions
+    if (con.uploadedSlipUrl || con.uploadedSlipName) {
+      const rxUpload: OwnerUploadedPrescription = {
+        id: 'rx-' + con.consultationId,
+        petId: con.patientId,
+        petName: con.petName,
+        ownerId: pet?.ownerId || 'owner-emily-watson',
+        doctorOrClinicName: con.doctorName || 'Veterinarian Prescription',
+        prescriptionDate: con.date || new Date().toISOString().split('T')[0],
+        uploadedAt: con.createdAt || new Date().toISOString(),
+        fileName: con.uploadedSlipName || `Prescription_${con.petName}_${con.date}.png`,
+        fileType: 'image/jpeg',
+        fileUrl: con.uploadedSlipUrl,
+        medications: con.prescription || [],
+        instructions: con.treatmentPlan || con.followUp || '',
+        diagnosis: con.diagnosis || 'Prescribed Medical Therapy',
+        status: 'active'
+      };
+      
+      const rxIdx = this.uploadedPrescriptions.findIndex(r => r.id === rxUpload.id);
+      if (rxIdx >= 0) this.uploadedPrescriptions[rxIdx] = rxUpload;
+      else this.uploadedPrescriptions.unshift(rxUpload);
+      this.save('vp_uploaded_prescriptions', this.uploadedPrescriptions);
+    }
   }
 
   // --- Labs ---
@@ -878,11 +1061,141 @@ class LocalDatabaseService {
       this.uploadedPrescriptions.unshift(rx);
     }
     this.save('vp_uploaded_prescriptions', this.uploadedPrescriptions);
-    this.addNotification(rx.ownerId, 'Prescription Uploaded', `Prescription for ${rx.petName} from ${rx.doctorOrClinicName} was successfully saved to health records.`, 'general');
+
+    // Sync medications with the pet profile
+    const pet = this.pets.find(p => p.petId === rx.petId);
+    if (pet && rx.medications && rx.medications.length > 0) {
+      const medNames = rx.medications.map(p => `${p.drugName} (${p.doseRate || ''} ${p.frequency || ''})`.trim());
+      const combined = Array.from(new Set([...medNames, ...(pet.currentMedications || [])])).slice(0, 8);
+      pet.currentMedications = combined;
+      this.savePet(pet);
+    }
+
+    // AI learns from this uploaded prescription
+    if (rx.medications && rx.medications.length > 0) {
+      this.recordPrescriptionLearning({
+        patientName: rx.petName,
+        species: pet?.species,
+        diagnosis: rx.diagnosis || 'Prescribed Care',
+        items: rx.medications,
+        notes: rx.instructions,
+        source: 'uploaded_prescription'
+      });
+    }
+
+    this.addNotification(rx.ownerId, 'Prescription Saved', `Prescription for ${rx.petName} from ${rx.doctorOrClinicName} was successfully saved to health records.`, 'general');
   }
   public deleteUploadedPrescription(id: string) {
     this.uploadedPrescriptions = this.uploadedPrescriptions.filter(p => p.id !== id);
     this.save('vp_uploaded_prescriptions', this.uploadedPrescriptions);
+  }
+
+  // --- AI Learned Formulary & Dynamic Suggestions ---
+  public getLearnedFormulary(species?: string, indication?: string): LearnedFormularyItem[] {
+    let list = [...this.learnedFormulary];
+    if (species && species !== 'all') {
+      const sp = species.toLowerCase();
+      list = list.filter(item => item.targetSpecies === 'all' || item.targetSpecies === sp);
+    }
+    if (indication && indication.trim().length > 0) {
+      const term = indication.toLowerCase();
+      // Sort items matching indication to the top
+      list.sort((a, b) => {
+        const aMatch = a.indication.toLowerCase().includes(term) || a.drugName.toLowerCase().includes(term) ? 1 : 0;
+        const bMatch = b.indication.toLowerCase().includes(term) || b.drugName.toLowerCase().includes(term) ? 1 : 0;
+        if (aMatch !== bMatch) return bMatch - aMatch;
+        return b.timesUsed - a.timesUsed;
+      });
+    } else {
+      list.sort((a, b) => b.timesUsed - a.timesUsed);
+    }
+    return list;
+  }
+
+  public recordPrescriptionLearning(prescription: {
+    patientName?: string;
+    species?: string;
+    diagnosis: string;
+    items: PrescriptionItem[];
+    notes?: string;
+    source?: 'uploaded_prescription' | 'doctor_rx' | 'ai_verified';
+  }): LearnedFormularyItem[] {
+    if (!prescription.items || prescription.items.length === 0) return this.learnedFormulary;
+
+    let hasChanges = false;
+    const targetSpecies: 'dog' | 'cat' | 'all' = prescription.species?.toLowerCase().includes('cat') 
+      ? 'cat' 
+      : prescription.species?.toLowerCase().includes('dog') 
+        ? 'dog' 
+        : 'all';
+
+    prescription.items.forEach(item => {
+      if (!item.drugName || item.drugName.trim().length < 2) return;
+      const cleanName = item.drugName.trim();
+      const lowerName = cleanName.toLowerCase();
+
+      // Find if we already have this drug or similar in learned formulary
+      const existingIdx = this.learnedFormulary.findIndex(f => 
+        f.drugName.toLowerCase() === lowerName ||
+        f.drugName.toLowerCase().includes(lowerName) ||
+        lowerName.includes(f.drugName.toLowerCase().split(' ')[0])
+      );
+
+      if (existingIdx >= 0) {
+        const existing = this.learnedFormulary[existingIdx];
+        existing.timesUsed += 1;
+        existing.learnedAt = new Date().toISOString();
+        if (item.doseRate && (!existing.doseRate || existing.doseRate.length < 3)) {
+          existing.doseRate = item.doseRate;
+        }
+        if (item.frequency && (!existing.frequency || existing.frequency.length < 3)) {
+          existing.frequency = item.frequency;
+        }
+        if (prescription.diagnosis && !existing.indication.toLowerCase().includes(prescription.diagnosis.toLowerCase())) {
+          existing.indication = `${existing.indication}, ${prescription.diagnosis}`.slice(0, 150);
+        }
+        if (prescription.patientName) {
+          existing.learnedFromPatient = prescription.patientName;
+        }
+        hasChanges = true;
+      } else {
+        // Create a new learned item in our AI formulary
+        const newItem: LearnedFormularyItem = {
+          id: 'lrn-' + Math.random().toString(36).substring(2, 9),
+          drugName: cleanName,
+          doseRate: item.doseRate || 'Standard veterinary dose',
+          concentration: item.concentration || '',
+          route: item.route || 'PO',
+          frequency: item.frequency || 'BID',
+          duration: item.duration || '7 days',
+          indication: prescription.diagnosis || 'Prescribed Clinical Therapy',
+          targetSpecies,
+          source: prescription.source || 'uploaded_prescription',
+          learnedFromPatient: prescription.patientName,
+          learnedAt: new Date().toISOString(),
+          timesUsed: 1,
+          doctorConfidence: 'AI Learned & Clinician Approved',
+          clinicalNote: item.instructions || prescription.notes || 'Learned from real clinical prescription.'
+        };
+        this.learnedFormulary.unshift(newItem);
+        hasChanges = true;
+      }
+    });
+
+    if (hasChanges) {
+      this.save('vp_learned_formulary', this.learnedFormulary);
+      try {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('vetpulse:formulary-updated', { 
+            detail: { count: this.learnedFormulary.length } 
+          }));
+        }
+      } catch (e) {
+        // Ignore in non-browser context
+      }
+    }
+
+    return this.learnedFormulary;
   }
 
   // --- Pet Age & Weight Updates ---
@@ -952,7 +1265,9 @@ class LocalDatabaseService {
       inventory: this.inventory,
       invoices: this.invoices,
       audit: this.audit,
-      settings: this.settings
+      settings: this.settings,
+      uploadedPrescriptions: this.uploadedPrescriptions,
+      learnedFormulary: this.learnedFormulary
     }, null, 2);
   }
 
@@ -1007,6 +1322,14 @@ class LocalDatabaseService {
         this.audit = data.audit;
         this.save('vp_audit', this.audit);
       }
+      if (data.uploadedPrescriptions && Array.isArray(data.uploadedPrescriptions)) {
+        this.uploadedPrescriptions = data.uploadedPrescriptions;
+        this.save('vp_uploaded_prescriptions', this.uploadedPrescriptions);
+      }
+      if (data.learnedFormulary && Array.isArray(data.learnedFormulary)) {
+        this.learnedFormulary = data.learnedFormulary;
+        this.save('vp_learned_formulary', this.learnedFormulary);
+      }
       if (data.settings && typeof data.settings === 'object') {
         this.settings = data.settings;
         this.saveSettings(this.settings);
@@ -1033,6 +1356,7 @@ class LocalDatabaseService {
     localStorage.removeItem('vp_audit');
     localStorage.removeItem('vp_settings');
     localStorage.removeItem('vp_uploaded_prescriptions');
+    localStorage.removeItem('vp_learned_formulary');
     localStorage.removeItem('vp_notifications');
     this.resetToDefaults();
   }

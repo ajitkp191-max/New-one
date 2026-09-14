@@ -398,16 +398,16 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-50/60 relative overflow-hidden h-screen" id="pet-owner-view-container">
+    <div className="flex-1 flex flex-col bg-slate-50/60 dark:bg-slate-950 relative overflow-hidden h-full min-h-0" id="pet-owner-view-container">
       <div className="flex-1 flex flex-col md:flex-row relative z-10 h-full overflow-hidden">
         
         {/* Navigation Dock */}
-        <nav className="md:w-24 bg-white border-r border-slate-100 flex md:flex-col items-center justify-between p-4 z-40 shadow-sm">
+        <nav className="md:w-24 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 flex md:flex-col items-center justify-between p-4 z-40 shadow-sm transition-colors">
           <div className="hidden md:flex flex-col items-center gap-6 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 via-teal-500 to-indigo-600 text-white flex items-center justify-center shadow-[0_10px_20px_rgba(6,182,212,0.35)]">
               <Activity className="h-6 w-6" />
             </div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
               VetPulse
             </span>
           </div>
@@ -424,10 +424,10 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id as any)}
-                className={`p-3.5 rounded-[22px] transition-all duration-300 group relative ${
+                className={`p-3.5 rounded-[22px] transition-all duration-300 group relative cursor-pointer ${
                   activeTab === item.id 
                     ? 'bg-gradient-to-br from-cyan-500 to-teal-600 text-white shadow-[0_12px_24px_rgba(6,182,212,0.35)] scale-110' 
-                    : 'text-slate-400 hover:bg-slate-50 hover:text-cyan-600'
+                    : 'text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400'
                 }`}
                 title={item.label}
               >
@@ -441,7 +441,7 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
 
           <button
             onClick={onLogout}
-            className="p-3.5 rounded-[22px] text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-all"
+            className="p-3.5 rounded-[22px] text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-500 transition-all cursor-pointer"
             title="Sign Out"
           >
             <LogOut className="h-5 w-5" />
@@ -449,7 +449,7 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
         </nav>
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/50 custom-scrollbar relative">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 custom-scrollbar relative transition-colors">
           {toastMessage && (
             <div className="fixed top-6 right-6 z-50 p-4 bg-slate-900 text-white shadow-2xl rounded-2xl border border-slate-700 flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-200">
               <CheckCircle className="w-5 h-5 text-teal-400 shrink-0" />

@@ -6,7 +6,7 @@ export type EmojiType =
   | 'cat' | '🐱' 
   | 'bird' | '🦜' 
   | 'paw' | '🐾'
-  | 'heart' | '❤️' | '💖'
+  | 'heart' | '❤️' | '💖' | 'heartbeat' | 'pulse' | '💓' | '💗'
   | 'pill' | '💊'
   | 'stethoscope' | '🩺'
   | 'lab' | '🧪'
@@ -48,8 +48,8 @@ export default function Realistic3DEmoji({
 
   // Determine rendering style and animation based on emoji kind
   const renderVisual = () => {
-    // 3D Realistic Heart
-    if (norm === 'heart' || norm === '❤️' || norm === '💖') {
+    // 3D Realistic Heart & Pulse
+    if (norm === 'heart' || norm === '❤️' || norm === '💖' || norm === 'heartbeat' || norm === 'pulse' || norm === '💓' || norm === '💗') {
       return (
         <motion.div
           className="relative w-full h-full flex items-center justify-center select-none"

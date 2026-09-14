@@ -126,7 +126,28 @@ export interface Consultation {
   prescription?: PrescriptionItem[];
   followUp: string;
   attachments?: ClinicalAttachment[];
+  uploadedSlipUrl?: string;
+  uploadedSlipName?: string;
+  prescriptionMode?: 'ai' | 'doctor' | 'upload';
   createdAt: string;
+}
+
+export interface LearnedFormularyItem {
+  id: string;
+  drugName: string;
+  doseRate: string;
+  concentration?: string;
+  route: string;
+  frequency: string;
+  duration: string;
+  indication: string;
+  targetSpecies: 'all' | 'dog' | 'cat' | 'other';
+  source: 'uploaded_prescription' | 'doctor_rx' | 'ai_verified';
+  learnedFromPatient?: string;
+  learnedAt: string;
+  timesUsed: number;
+  doctorConfidence?: string;
+  clinicalNote?: string;
 }
 
 export interface PrescriptionItem {

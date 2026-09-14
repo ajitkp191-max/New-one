@@ -515,11 +515,11 @@ Check for any standard contraindications or species-specific adjustments for com
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-white relative overflow-hidden h-screen" id="doctor-view-container">
+    <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950 relative overflow-hidden h-full min-h-0" id="doctor-view-container">
       <div className="flex-1 flex flex-col md:flex-row relative z-10 h-full overflow-hidden">
         
         {/* Claymorphic Side Navigation */}
-        <nav className="md:w-24 bg-white border-r border-slate-100 flex md:flex-col items-center justify-between p-4 z-40">
+        <nav className="md:w-24 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 flex md:flex-col items-center justify-between p-4 z-40 transition-colors">
           <div className="hidden md:flex flex-col items-center gap-6 mb-4">
             <div 
               onClick={() => setActiveTab('dashboard')}
@@ -548,10 +548,10 @@ Check for any standard contraindications or species-specific adjustments for com
                   key={item.id}
                   onClick={() => setActiveTab(item.id as any)}
                   title={item.label}
-                  className={`p-3 rounded-2xl transition-all duration-300 relative group ${
+                  className={`p-3 rounded-2xl transition-all duration-300 relative group cursor-pointer ${
                     activeTab === item.id 
-                      ? 'bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] text-teal-600 scale-110' 
-                      : 'text-slate-400 hover:text-slate-600 hover:bg-white'
+                      ? 'bg-white dark:bg-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_20px_rgba(0,0,0,0.4)] text-teal-600 dark:text-teal-400 scale-110 border border-slate-100 dark:border-slate-700' 
+                      : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-white dark:hover:bg-slate-800/60'
                   }`}
                 >
                   <item.icon className="h-5 w-5" />
@@ -564,7 +564,7 @@ Check for any standard contraindications or species-specific adjustments for com
                   {activeTab === item.id && (
                     <motion.div 
                       layoutId="activeTabDoc"
-                      className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-teal-600 rounded-r-full"
+                      className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-teal-600 dark:bg-teal-400 rounded-r-full"
                     />
                   )}
                 </button>
@@ -575,14 +575,14 @@ Check for any standard contraindications or species-specific adjustments for com
           <button 
             onClick={onLogout}
             title="Sign Out"
-            className="p-3.5 rounded-2xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-all"
+            className="p-3.5 rounded-2xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all cursor-pointer"
           >
             <LogOut className="h-5 w-5" />
           </button>
         </nav>
 
         {/* Mobile Horizontal Navigation Header */}
-        <div className="md:hidden flex items-center justify-between p-3 bg-white border-b border-slate-200 z-30 overflow-x-auto gap-2 no-scrollbar">
+        <div className="md:hidden flex items-center justify-between p-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-30 overflow-x-auto gap-2 no-scrollbar">
           {[
             { id: 'dashboard', icon: Zap, label: 'Dashboard' },
             { id: 'clinical_ai', icon: Stethoscope, label: 'AI Triage' },
@@ -597,8 +597,10 @@ Check for any standard contraindications or species-specific adjustments for com
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id as any)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 ${
-                activeTab === item.id ? 'bg-slate-900 text-cyan-400' : 'text-slate-600 bg-slate-100'
+              className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                activeTab === item.id 
+                  ? 'bg-slate-900 dark:bg-cyan-500/20 text-cyan-400 border border-transparent dark:border-cyan-500/40' 
+                  : 'text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800'
               }`}
             >
               <item.icon className="w-3.5 h-3.5" />
@@ -617,16 +619,16 @@ Check for any standard contraindications or species-specific adjustments for com
           )}
 
           {/* Quick Navigation Breadcrumb & Toolbar (Sticky for fast module switching) */}
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 bg-white/90 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/80 shadow-sm" id="doctor-toolbar-container">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm transition-colors" id="doctor-toolbar-container">
             <div className="flex items-center gap-2">
               {/* Back Button */}
               <button
                 onClick={handleGoBack}
-                className="px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all active:scale-95 border border-slate-200/60 shadow-xs group"
+                className="px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all active:scale-95 border border-slate-200/60 dark:border-slate-700/80 shadow-xs group cursor-pointer"
                 title="Go to previous tab"
                 id="doctor-back-btn"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-cyan-600 group-hover:-translate-x-0.5 transition-transform" />
+                <ArrowLeft className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 group-hover:-translate-x-0.5 transition-transform" />
                 <span>Back</span>
               </button>
 
@@ -763,44 +765,47 @@ Check for any standard contraindications or species-specific adjustments for com
                   doctorName={doctorProfile?.name || currentUser.name}
                   onSavePrescription={(prescription) => {
                     const newCon: Consultation = {
-                      consultationId: 'con-rx-' + Date.now(),
-                      patientId: prescription.patientId,
-                      petName: prescription.patientName,
-                      doctorId: currentUser.uid,
-                      doctorName: doctorProfile?.name || currentUser.name,
-                      date: new Date().toISOString().split('T')[0],
-                      chiefComplaint: `Prescription issued for ${prescription.diagnosis}`,
-                      history: `Mode: ${prescription.mode.toUpperCase()}. ${prescription.notes || ''}`,
-                      examination: {
-                        temperature: 38.5,
-                        pulse: 100,
-                        respiration: 24,
-                        crt: '< 2s',
-                        mucousMembranes: 'Pink',
-                        hydration: 'Normal',
-                        bodyConditionScore: 5,
-                        weight: patients.find(p => p.petId === prescription.patientId)?.weight || 10,
-                        systemicExam: 'Systemic clinical examination conducted prior to prescribing'
-                      },
-                      differentialDiagnosis: 'Confirmed',
-                      diagnosis: prescription.diagnosis,
-                      treatmentPlan: prescription.notes || 'Administer prescribed medications',
-                      prescription: prescription.items,
-                      followUp: 'Recheck upon completion of prescription course',
-                      createdAt: new Date().toISOString()
-                    };
-                    dbService.saveConsultation(newCon);
-                    dbService.logAction(
-                      currentUser.uid,
-                      currentUser.name,
-                      'doctor',
-                      `Prescription finalized for ${prescription.patientName}: ${prescription.diagnosis}`,
-                      'consultations',
-                      newCon.consultationId,
-                      'success'
-                    );
-                    syncData();
-                  }}
+                       consultationId: 'con-rx-' + Date.now(),
+                       patientId: prescription.patientId,
+                       petName: prescription.patientName,
+                       doctorId: currentUser.uid,
+                       doctorName: doctorProfile?.name || currentUser.name,
+                       date: prescription.prescriptionDate || new Date().toISOString().split('T')[0],
+                       chiefComplaint: `Prescription issued for ${prescription.diagnosis}`,
+                       history: `Mode: ${prescription.mode.toUpperCase()}. ${prescription.notes || ''}`,
+                       examination: {
+                         temperature: 38.5,
+                         pulse: 100,
+                         respiration: 24,
+                         crt: '< 2s',
+                         mucousMembranes: 'Pink',
+                         hydration: 'Normal',
+                         bodyConditionScore: 5,
+                         weight: patients.find(p => p.petId === prescription.patientId)?.weight || 10,
+                         systemicExam: 'Systemic clinical examination conducted prior to prescribing'
+                       },
+                       differentialDiagnosis: 'Confirmed',
+                       diagnosis: prescription.diagnosis,
+                       treatmentPlan: prescription.notes || 'Administer prescribed medications',
+                       prescription: prescription.items,
+                       prescriptionMode: prescription.mode,
+                       uploadedSlipUrl: prescription.uploadedFilePreview,
+                       uploadedSlipName: prescription.uploadedFile,
+                       followUp: 'Recheck upon completion of prescription course',
+                       createdAt: new Date().toISOString()
+                     };
+                     dbService.saveConsultation(newCon);
+                     dbService.logAction(
+                       currentUser.uid,
+                       currentUser.name,
+                       'doctor',
+                       `Prescription finalized for ${prescription.patientName}: ${prescription.diagnosis}`,
+                       'consultations',
+                       newCon.consultationId,
+                       'success'
+                     );
+                     syncData();
+                   }}
                 />
               </motion.div>
             )}

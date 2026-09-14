@@ -75,7 +75,7 @@ export default function ThreeDParallaxCard({
         transformStyle: 'preserve-3d',
       }}
       className={`relative rounded-[32px] transition-shadow duration-500 ${
-        isHovered ? 'shadow-[0_24px_50px_rgba(0,0,0,0.08)]' : 'shadow-[0_12px_30px_rgba(0,0,0,0.03)]'
+        isHovered ? 'shadow-[0_24px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_24px_50px_rgba(0,0,0,0.4)]' : 'shadow-[0_12px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.25)]'
       } ${onClick ? 'cursor-pointer' : ''} ${className}`}
     >
       <motion.div
@@ -89,10 +89,10 @@ export default function ThreeDParallaxCard({
         {/* Specular Glare / Shine Effect */}
         {interactive && isHovered && (
           <motion.div
-            className="absolute inset-0 rounded-[32px] pointer-events-none z-30 transition-opacity duration-300"
+            className="absolute inset-0 rounded-[28px] pointer-events-none z-30 transition-opacity duration-300"
             style={{
               background: `radial-gradient(circle at ${glareX} ${glareY}, ${glowColor}, transparent 70%)`,
-              opacity: isHovered ? 0.6 : 0,
+              opacity: isHovered ? 0.65 : 0,
             }}
           />
         )}

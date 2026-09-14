@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Activity, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
+import emoji3dPuppy from '../assets/images/emoji_3d_puppy_1789274564327.jpg';
+import emoji3dCat from '../assets/images/emoji_3d_cat_1789274582580.jpg';
+import emoji3dDog from '../assets/images/emoji_3d_dog_1789274599897.jpg';
 
 interface SplashViewProps {
   onComplete: () => void;
@@ -10,6 +13,22 @@ export default function SplashView({ onComplete }: SplashViewProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    let completed = false;
+    let finishTimeout: any = null;
+
+    const handleFinish = () => {
+      if (!completed) {
+        completed = true;
+        onComplete();
+      }
+    };
+
+    // Preload onboarding 3D images immediately during splash screen
+    [emoji3dPuppy, emoji3dCat, emoji3dDog].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
     const duration = 2500; // 2.5 seconds loading experience
     const intervalTime = 25;
     const steps = duration / intervalTime;
@@ -20,8 +39,8 @@ export default function SplashView({ onComplete }: SplashViewProps) {
         const next = prev + increment;
         if (next >= 100) {
           clearInterval(timer);
-          setTimeout(() => {
-            onComplete();
+          finishTimeout = setTimeout(() => {
+            handleFinish();
           }, 300);
           return 100;
         }
@@ -29,7 +48,10 @@ export default function SplashView({ onComplete }: SplashViewProps) {
       });
     }, intervalTime);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      if (finishTimeout) clearTimeout(finishTimeout);
+    };
   }, [onComplete]);
 
   return (

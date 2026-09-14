@@ -286,39 +286,85 @@ export default function MobileInstallModal({ isOpen, onClose }: MobileInstallMod
 
           {/* APK Build Tab */}
           {activeTab === 'apk' && (
-            <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-2xl bg-emerald-950/30 border border-emerald-800/50 flex items-center gap-3">
-                <span className="text-2xl">📦</span>
-                <div>
-                  <div className="font-bold text-emerald-200">Native Android APK / Capacitor Package</div>
-                  <div className="text-slate-400">Generate a distributable APK file for Android device sideloading.</div>
+            <div className="space-y-3.5 text-xs">
+              <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-700/50 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-2xl">📦</span>
+                  <div>
+                    <div className="font-bold text-emerald-200">Native Android Release APK</div>
+                    <div className="text-slate-400 text-[11px]">Compiled Capacitor Android Project &amp; GitHub Release Ready</div>
+                  </div>
                 </div>
+                <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Ready
+                </span>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-2xl border border-slate-800 space-y-2.5">
-                <div className="font-bold text-slate-200">Steps to compile APK via Capacitor:</div>
-                <div className="p-2.5 bg-slate-900 rounded-xl font-mono text-[11px] text-teal-300 select-all border border-slate-800 space-y-1">
-                  <div>npm install @capacitor/core @capacitor/cli @capacitor/android</div>
-                  <div>npx cap init "VetPulse Pro" com.vetpulse.app</div>
-                  <div>npm run build</div>
-                  <div>npx cap add android</div>
-                  <div>npx cap open android</div>
+              {/* Method 1: Instant Cloud APK Generator */}
+              <div className="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-[11px]">1</span>
+                    Instant Cloud APK (Signed &amp; Play Store Ready)
+                  </span>
+                  <span className="text-[10px] text-emerald-400 font-bold">No Android Studio required</span>
                 </div>
                 <p className="text-slate-400 text-[11px]">
-                  Then in Android Studio, click <strong>Build &gt; Build Bundle(s) / APK(s) &gt; Build APK</strong> to generate your native <code className="text-teal-300">app-debug.apk</code>.
+                  Generate a signed release APK or Google Play Store AAB package instantly using PWABuilder:
+                </p>
+                <a
+                  href={`https://www.pwabuilder.com?site=${encodeURIComponent(appUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-md transition"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Generate Signed APK Online via PWABuilder</span>
+                </a>
+              </div>
+
+              {/* Method 2: GitHub Actions Automated APK */}
+              <div className="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-[11px]">2</span>
+                    GitHub Actions 1-Click Release Workflow
+                  </span>
+                  <span className="text-[10px] text-cyan-300 font-mono">.github/workflows/build-apk.yml</span>
+                </div>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  We've embedded an automated CI/CD APK workflow in the code. Whenever you export to GitHub (via AI Studio Settings &gt; Export to GitHub) or push commits, GitHub compiles and attaches <code className="text-teal-300 font-mono">VetPulse-Pro-release.apk</code> in the GitHub Releases tab automatically!
+                </p>
+              </div>
+
+              {/* Method 3: Local Android Studio / CLI Compilation */}
+              <div className="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                <div className="font-bold text-white flex items-center gap-1.5">
+                  <span className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-[11px]">3</span>
+                  Local Compilation via Capacitor CLI
+                </div>
+                <p className="text-slate-400 text-[11px]">
+                  The native <code className="text-teal-300">/android</code> project is fully configured in this repository. Run:
+                </p>
+                <div className="p-2.5 bg-slate-900 rounded-xl font-mono text-[11px] text-teal-300 select-all border border-slate-800 space-y-1">
+                  <div>npm run build:android</div>
+                  <div>npm run build:apk</div>
+                </div>
+                <p className="text-slate-400 text-[10px]">
+                  Or open the <code className="text-teal-300">/android</code> folder in Android Studio and select <strong>Build &gt; Build Bundle(s) / APK(s) &gt; Build APK</strong>.
                 </p>
               </div>
 
               <div className="p-3 rounded-2xl bg-slate-800/50 border border-slate-700 flex items-center justify-between">
                 <div>
-                  <div className="font-bold text-white">Export Codebase</div>
-                  <div className="text-[11px] text-slate-400">Use AI Studio Settings &gt; Export to GitHub or ZIP</div>
+                  <div className="font-bold text-white">Export Complete Repository</div>
+                  <div className="text-[11px] text-slate-400">Settings &gt; Export to GitHub or ZIP to get all native Android code</div>
                 </div>
                 <button
                   onClick={handleCopyLink}
-                  className="px-3 py-1.5 rounded-xl bg-teal-500/20 text-teal-300 font-bold hover:bg-teal-500/30 transition text-xs"
+                  className="px-3 py-1.5 rounded-xl bg-teal-500/20 text-teal-300 font-bold hover:bg-teal-500/30 transition text-xs cursor-pointer"
                 >
-                  Share Link
+                  {copied ? 'Copied!' : 'Copy Link'}
                 </button>
               </div>
             </div>

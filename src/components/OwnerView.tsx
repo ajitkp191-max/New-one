@@ -366,7 +366,7 @@ export default function OwnerView({ currentUser, onLogout }: OwnerViewProps) {
   const admittedPatientsCount = hospitalizations.filter(h => h.status === 'admitted').length;
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-50 relative overflow-hidden h-screen font-sans" id="super-admin-3d-master-view">
+    <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950 relative overflow-hidden h-full min-h-0 font-sans transition-colors" id="super-admin-3d-master-view">
       
       {/* Toast Overlay */}
       <AnimatePresence>
@@ -392,7 +392,7 @@ export default function OwnerView({ currentUser, onLogout }: OwnerViewProps) {
       <div className="flex-1 flex flex-col md:flex-row relative z-10 h-full overflow-hidden">
         
         {/* 3D Claymorphic HD Side Navigation */}
-        <nav className="md:w-24 bg-white border-r border-slate-200/80 flex md:flex-col items-center justify-between p-4 z-40 shadow-sm shrink-0">
+        <nav className="md:w-24 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800 flex md:flex-col items-center justify-between p-4 z-40 shadow-sm shrink-0 transition-colors">
           <div className="hidden md:flex flex-col items-center gap-8 mb-8">
             
             {/* Top 3D Brand Badge */}
@@ -416,10 +416,10 @@ export default function OwnerView({ currentUser, onLogout }: OwnerViewProps) {
                     key={item.id}
                     onClick={() => setActiveTab(item.id as any)}
                     title={item.label}
-                    className={`p-3.5 rounded-2xl transition-all duration-300 relative group flex items-center justify-center ${
+                    className={`p-3.5 rounded-2xl transition-all duration-300 relative group flex items-center justify-center cursor-pointer ${
                       isActive 
-                        ? 'bg-slate-900 text-cyan-400 shadow-[0_10px_25px_rgba(15,23,42,0.3)] scale-110' 
-                        : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+                        ? 'bg-slate-900 dark:bg-cyan-500/20 text-cyan-400 dark:border dark:border-cyan-500/40 shadow-[0_10px_25px_rgba(15,23,42,0.3)] scale-110' 
+                        : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
                     <item.icon className="h-5 w-5" />
