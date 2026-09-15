@@ -22,11 +22,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
 
       - name: Install Node Dependencies
-        run: npm ci || npm install
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci || npm install
+          else
+            npm install
+          fi
 
       - name: Build Web Production Assets
         run: npm run build
@@ -44,7 +48,11 @@ jobs:
         run: npx cap sync android
 
       - name: Make Gradle executable
-        run: chmod +x ./android/gradlew
+        run: |
+          if [ ! -f ./android/gradlew ]; then
+            tar -zxvf node_modules/@capacitor/cli/assets/android-template.tar.gz -C android/ build.gradle settings.gradle gradlew gradlew.bat gradle/ 2>/dev/null || true
+          fi
+          chmod +x ./android/gradlew
 
       - name: Build Android Release & Debug APK
         run: |
