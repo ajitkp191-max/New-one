@@ -17,6 +17,7 @@ import {
   Radio
 } from 'lucide-react';
 import { AppSettings } from '../../types';
+import NotificationSoundToggle from '../NotificationSoundToggle';
 
 interface SuperAdminMasterSettingsProps {
   settings: AppSettings;
@@ -223,6 +224,21 @@ export default function SuperAdminMasterSettings({
               />
             </div>
           </div>
+        </div>
+
+        {/* Section 2.5: Notification Audio & Alert Sound Preferences */}
+        <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-[0_16px_35px_rgba(0,0,0,0.03)] space-y-4">
+          <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center">
+              <Settings className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-lg font-black text-slate-900">Hospital Audio & Sound Alerts</h3>
+              <p className="text-xs text-slate-400">Control in-app audio feedback, reminder chimes, and clinical alert sounds.</p>
+            </div>
+          </div>
+
+          <NotificationSoundToggle variant="full" id="admin-master-sound-toggle" />
         </div>
 
         {/* Save Button */}

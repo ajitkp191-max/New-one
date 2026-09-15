@@ -59,6 +59,7 @@ import DoctorVaccinationDeworming from './DoctorVaccinationDeworming';
 import DoctorMedicalRecords from './DoctorMedicalRecords';
 import DoctorPrescriptionStudio from './DoctorPrescriptionStudio';
 import DoctorDashboard3D from './doctor/DoctorDashboard3D';
+import NotificationSoundToggle from './NotificationSoundToggle';
 
 interface DoctorViewProps {
   currentUser: UserProfile;
@@ -682,6 +683,9 @@ Check for any standard contraindications or species-specific adjustments for com
                   <span>{btn.label}</span>
                 </button>
               ))}
+
+              <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block" />
+              <NotificationSoundToggle variant="badge" id="doctor-sound-badge-btn" />
             </div>
           </div>
 

@@ -58,6 +58,7 @@ import Realistic3DIcon from './Realistic3DIcon';
 import EditPetAgeWeightModal from './owner/EditPetAgeWeightModal';
 import UploadPrescriptionModal from './owner/UploadPrescriptionModal';
 import Upcoming3DNotifications from './owner/Upcoming3DNotifications';
+import NotificationSoundToggle from './NotificationSoundToggle';
 import AllPreviousRecordsHub from './owner/AllPreviousRecordsHub';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -537,6 +538,9 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
                   </span>
                 )}
               </button>
+
+              {/* Notification Sound Mute Toggle */}
+              <NotificationSoundToggle variant="badge" id="petowner-toolbar-sound-toggle" />
 
               <button
                 onClick={() => setShowAddPetModal(true)}
@@ -1311,6 +1315,11 @@ export default function PetOwnerView({ currentUser, onLogout }: PetOwnerViewProp
                     <ArrowLeft className="w-4 h-4" />
                   </button>
                 </div>
+              </div>
+
+              {/* Notification Audio & Sound Alert Control */}
+              <div className="p-4 bg-slate-50 border-b border-slate-100">
+                <NotificationSoundToggle variant="full" id="petowner-modal-sound-banner" />
               </div>
 
               {/* Notification Items List */}

@@ -24,6 +24,7 @@ import {
   PrescriptionItem
 } from '../types';
 import { db, auth } from './firebaseClient';
+import { playNotificationSound } from './soundService';
 
 enum OperationType {
   CREATE = 'create',
@@ -1235,6 +1236,9 @@ class LocalDatabaseService {
     };
     this.notifications.unshift(not);
     this.save('vp_notifications', this.notifications);
+
+    // Play chime only if user has turned notification sound ON (OFF by default)
+    playNotificationSound(type === 'vaccination' ? 'booster' : type === 'appointment' ? 'alert' : 'general');
   }
   public markAllRead(userId: string) {
     this.notifications = this.notifications.map(n => n.userId === userId ? { ...n, read: true } : n);

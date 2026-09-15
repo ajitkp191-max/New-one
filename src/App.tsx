@@ -8,6 +8,7 @@ import DoctorView from './components/DoctorView';
 import OwnerView from './components/OwnerView';
 import MobileInstallModal from './components/MobileInstallModal';
 import DarkModeToggle from './components/DarkModeToggle';
+import NotificationSoundToggle from './components/NotificationSoundToggle';
 import { Sparkles, Activity, ArrowLeftRight, ArrowLeft, Home, User, LogOut, Smartphone, Download } from 'lucide-react';
 
 export default function App() {
@@ -105,8 +106,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right: Install App, Dark Mode & User Info */}
+          {/* Right: Sound Mute, Install App, Dark Mode & User Info */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Notification Sound Mute / Unmute Toggle */}
+            <NotificationSoundToggle variant="compact" id="header-sound-toggle-btn" />
+
             {/* Dark / Light Mode Converter */}
             <DarkModeToggle variant="compact" />
 
